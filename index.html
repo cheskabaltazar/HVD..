@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine's Day</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg, #ff9ecf, #ff4da6);
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Floating hearts animation */
+body::before {
+    content: "💗 💖 💕 💘 💓";
+    position: fixed;
+    font-size: 30px;
+    width: 100%;
+    animation: float 15s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-100vh); }
+}
+
+h1 {
+    margin-top: 40px;
+    font-size: 45px;
+    text-shadow: 3px 3px #ff1493;
+}
+
+/* 3D Heart Container */
+.scene {
+    width: 200px;
+    height: 200px;
+    margin: 80px auto;
+    perspective: 1000px;
+}
+
+.heart-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,100% { transform: rotateY(0deg) translateY(0); }
+    50% { transform: rotateY(10deg) translateY(-10px); }
+}
+
+.heart-shape {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #ff1493;
+    transform: rotate(-45deg);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #ff1493;
+    border-radius: 50%;
+}
+
+.heart-shape::before {
+    top: -100px;
+    left: 0;
+}
+
+.heart-shape::after {
+    left: 100px;
+    top: 0;
+}
+
+/* Open effect */
+.open {
+    transform: rotateY(180deg) scale(1.1);
+}
+
+/* Categories */
+.categories, .section {
+    display: none;
+    margin-top: 40px;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #ff1493;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px pink;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background: #ffe4e1;
+}
+
+/* Photobooth */
+.photo-container img {
+    width: 130px;
+    margin: 10px;
+    border: 6px solid white;
+    transform: rotate(-5deg);
+    box-shadow: 0 0 15px #ff69b4;
+}
+
+/* Music */
+.music-box {
+    background: white;
+    color: #ff1493;
+    padding: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 0 20px pink;
+}
+
+/* Letters */
+.letter {
+    background: white;
+    color: #ff1493;
+    margin: 10px auto;
+    padding: 15px;
+    width: 220px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 15px pink;
+}
+
+.hidden-message {
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Valentine's Day 💖</h1>
+
+<div class="scene">
+    <div class="heart-3d" id="heartBox" onclick="openBox()">
+        <div class="heart-shape"></div>
+    </div>
+</div>
+
+<!-- Categories -->
+<div class="categories" id="categories">
+    <button onclick="openSection('photos')">Photos 📸</button>
+    <button onclick="openSection('music')">Music 🎵</button>
+    <button onclick="openSection('letter')">Letter 💌</button>
+</div>
+
+<!-- Photos -->
+<div class="section" id="photos">
+    <h2>Photobooth Memories 💞</h2>
+    <div class="photo-container">
+        <img src="./pic1.jpg">
+        <img src="./pic2.jpg">
+        <img src="./pic3.jpg">
+        <img src="./pic4.jpg">
+        <img src="./pic5.jpg">
+        <img src="./pic6.jpg">
+        <img src="./pic7.jpg">
+        <img src="./pic8.jpg">
+        <img src="./pic9.jpg">
+        <img src="./pic10.jpg">
+        <img src="./pic11.jpg">
+        <img src="./pic12.jpg">
+        <img src="./pic13.jpg">
+    </div>
+    <br>
+    <button onclick="goBack()">Exit 💗</button>
+</div>
+
+<!-- Music -->
+<div class="section" id="music">
+    <h2>My song for you 🎶</h2>
+    <div class="music-box">
+        <audio id="musicPlayer">
+            <source src="sound.mp3" type="audio/mpeg">
+        </audio>
+        <button onclick="playMusic()">Play ▶</button>
+    </div>
+    <br><br>
+    <button onclick="goBack()">Exit 💗</button>
+</div>
+
+<!-- Letters -->
+<div class="section" id="letter">
+    <h2>Secret Love Letters 💌</h2>
+
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            Despite all the chaos that I gave to you, I hope
+            you still feel safe and find peace with me. I'm 
+            sorry bebeko.
+        </div>
+    </div>
+
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            Always remember that you're love by me. And I hope
+            you feel that too.
+        </div>
+    </div>
+
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            You, being very kind and generous and very very
+            handsome, made love you more.
+        </div>
+    </div>
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            You're the only person I wanna be dirty with, ykyk
+            HAHAHHAHA
+        </div>
+    </div>
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            Seing you smile and happy especially if it's because of 
+            me is my favorite thing.
+        </div>
+    </div>
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            You're so friendly jagi, but can you be playful to
+            me only? Can you be annoying to me only? HAHHAHAHAH
+        </div>
+    </div>
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            Even when we do nothing, I'm still happy and wanna be 
+            with you, jagi.
+        </div>
+    </div>
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            All of you efforts is appreciated by me, I felt so 
+            much love because of you, bebe.
+        </div>
+    </div>
+     <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+            I cherish every moments with you, jagi.
+        </div>
+    </div>
+    
+    <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+           I hope you know that I'm staying with you and I will 
+           keep choosing you even in the days we don't understand 
+           each other.Let's win this life together, jagi.
+        </div>
+    </div>
+     <div class="letter" onclick="toggleLetter(this)">
+        Click to Open 💕
+        <div class="hidden-message">
+          I'm always rooting for you, my engineer, and I'm praying 
+          to God for your success and to achieve all of your dreams. 
+          I'm just here, jagi, waiting for you and always will. I'm 
+          proud of you in all the things that you do. And whatever may 
+          happen, you have me, always. I love you always and I miss you 
+          very much, jagi. Happy Valentine's Day, dudu!
+        </div>
+    </div>
+
+    <button onclick="goBack()">Exit 💗</button>
+</div>
+
+<script>
+function openBox() {
+    document.getElementById("heartBox").classList.add("open");
+    document.getElementById("categories").style.display = "block";
+}
+
+function openSection(section) {
+    document.getElementById("categories").style.display = "none";
+    document.getElementById(section).style.display = "block";
+}
+
+function goBack() {
+    let sections = document.querySelectorAll(".section");
+    sections.forEach(sec => sec.style.display = "none");
+    document.getElementById("categories").style.display = "block";
+}
+
+function playMusic() {
+    document.getElementById("musicPlayer").play();
+}
+
+function toggleLetter(element) {
+    let msg = element.querySelector(".hidden-message");
+    msg.style.display = msg.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
